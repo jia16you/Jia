@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BiyaHero — Santa Barbara Tricycle Service</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <a href="#" class="brand-link" data-target="welcome">
+            <div class="brand-mark"></div>
+            <div class="brand-text">BiyaHero</div>
+          </a>
+        </div>
+        <nav class="top-actions">
+          <a href="#" class="nav-link" data-target="welcome">Home</a>
+          <a href="#" class="nav-link" data-target="passengerDash">Book</a>
+          <a href="#" class="nav-link" data-target="driverDash">Driver</a>
+          <a href="#" class="nav-link" data-target="rideHistory">History</a>
+          <a href="#" class="nav-link" data-target="help">Help</a>
+        </nav>
+      </header>
+
+      <section id="welcome" class="center-card">
+        <h1>Simple. Fast. Community-based tricycle rides.</h1>
+        <p class="muted">Serving Santa Barbara, Iloilo — local, affordable, and friendly.</p>
+        <div class="cta-row">
+          <button id="btnPassengerStart" class="btn primary">Book a Ride</button>
+          <button id="btnDriverStart" class="btn secondary">Driver Signup / Login</button>
+        </div>
+        <div class="links-row">
+          <a href="#" class="link-card" data-target="passengerDash">
+            <div class="card">
+              <h3>Quick Book</h3>
+              <p class="small muted">Choose preset locations and request a ride in seconds.</p>
+            </div>
+          </a>
+
+          <a href="#" class="link-card" data-target="driverDash">
+            <div class="card">
+              <h3>Become a Driver</h3>
+              <p class="small muted">Sign up, go online, and start earning.</p>
+            </div>
+          </a>
+
+          <a href="#" class="link-card" data-target="help">
+            <div class="card">
+              <h3>How BiyaHero Works</h3>
+              <p class="small muted">Learn about fares, safety tips, and community rules.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="passengerDash" class="panel hidden">
+        <div class="panel-grid">
+          <div class="card booking-card">
+            <h2>Book a Ride</h2>
+            <label>Pickup</label>
+            <select id="pickupSelect"></select>
+            <label>Dropoff</label>
+            <select id="dropoffSelect"></select>
+
+            <label>Passenger Category</label>
+            <select id="passengerType">
+              <option value="regular">Regular — ₱20</option>
+              <option value="student">Student — ₱15</option>
+              <option value="senior">Senior/PWD — ₱15</option>
+            </select>
+
+            <label>Number of Passengers</label>
+            <select id="passengerCount"></select>
+
+            <div class="fare-row">
+              <div class="fare-label">Estimated Fare</div>
+              <div id="estimatedFare" class="fare-value">₱0.00</div>
+            </div>
+
+            <div class="actions">
+              <button id="btnRequestRide" class="btn primary">Request Ride</button>
+              <button id="btnCancelBooking" class="btn danger hidden">Cancel Booking</button>
+            </div>
+          </div>
+
+          <div class="card status-card">
+            <h3>Ride Progress</h3>
+            <div id="rideTracker" class="ride-tracker"></div>
+
+            <div id="driverInfo" class="driver-info hidden">
+              <div id="driverName">Driver: —</div>
+              <div id="driverPlate">Plate: —</div>
+              <div id="eta">ETA: —</div>
+            </div>
+
+            <div id="rideSummary" class="hidden card small"></div>
+
+            <div id="rideHistory" class="history-list small">
+              <h4>Ride History</h4>
+              <ul id="passengerHistoryList"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="driverDash" class="panel hidden">
+        <div class="panel-grid">
+          <div class="card driver-controls">
+            <h2>Driver Dashboard</h2>
+            <div class="driver-form">
+              <label>Driver Name</label>
+              <input id="driverNameInput" placeholder="Juan dela Cruz" />
+
+              <label>Plate Number</label>
+              <input id="plateNumber" placeholder="ABC-123" />
+
+              <label>Tricycle Color</label>
+              <input id="tricycleColor" placeholder="Purple" value="Purple" />
+
+              <label>Contact Number</label>
+              <input id="contactNumber" placeholder="09xxxxxxxxx" />
+
+              <label>Vehicle Number (1–99)</label>
+              <input id="vehicleNumber" type="number" min="1" max="99" value="1" />
+
+              <div class="row">
+                <button id="btnDriverRegister" class="btn primary">Register & Go Online</button>
+                <button id="btnDriverToggle" class="btn ghost">Go Online</button>
+              </div>
+            </div>
+
+            <div class="earnings">
+              <h4>Earnings</h4>
+              <div id="driverEarnings">₱0.00</div>
+              <div id="driverCompleted">Completed Rides: 0</div>
+            </div>
+          </div>
+
+          <div class="card offers">
+            <h3>Available Ride Requests</h3>
+            <div id="offersList"></div>
+          </div>
+
+          <div class="card history-list">
+            <h4>Ride History</h4>
+            <ul id="driverHistoryList"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="rideHistory" class="panel hidden">
+        <div class="card">
+          <h3>Your Rides</h3>
+          <p class="small muted">A quick log of recent rides for both passengers and drivers (prototype in-memory).</p>
+          <ul id="unifiedHistoryList"></ul>
+        </div>
+      </section>
+
+      <section id="help" class="panel hidden">
+        <div class="card">
+          <h3>How BiyaHero Works</h3>
+          <p class="small muted">This prototype uses preset local locations, a simple fare model, and real-time offers delivered to nearby drivers.</p>
+          <p class="small">Useful links:</p>
+          <ul>
+            <li><a href="#" class="plain-link" data-target="passengerDash">Quick Book</a></li>
+            <li><a href="#" class="plain-link" data-target="driverDash">Driver Signup</a></li>
+            <li><a href="#" class="plain-link" data-target="rideHistory">Ride History</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <div id="toastContainer" class="toast-container"></div>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
